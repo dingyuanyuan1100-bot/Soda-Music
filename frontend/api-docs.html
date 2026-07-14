@@ -1,9 +1,9 @@
 <!doctype html>
-<html lang="zh-CN">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>汽水音乐 API 文档</title>
+    <title>Soda Music Remote API Docs</title>
     <link rel="icon" href="/favicon.ico" sizes="any" />
     <link rel="stylesheet" href="/app.css?v=20260714-01" />
     <style>
@@ -23,99 +23,99 @@
     <div class="docs-shell">
       <div class="docs-top">
         <div>
-          <p class="eyebrow">API DOCUMENTATION</p>
-          <h1>汽水音乐第三方接口文档</h1>
-          <p class="topbar-desc">当前网站前端部署在 80 端口，实际 API 服务运行在 <code>http://47.116.42.11:1234</code>。</p>
+          <p class="eyebrow">REMOTE API DOCUMENTATION</p>
+          <h1>Soda Music Third-Party Interface Docs</h1>
+          <p class="topbar-desc">This frontend is served as a companion to the remote API service running behind <code>http://47.116.42.11:1234</code>. The repository is for a remote-connected project, not a local-only product.</p>
         </div>
         <div class="docs-actions">
-          <a class="ghost-button" href="/">返回主页</a>
-          <a class="ghost-button" href="http://47.116.42.11:1234/API.md" target="_blank" rel="noreferrer">Markdown 文档</a>
+          <a class="ghost-button" href="/">Back To Workspace</a>
+          <a class="ghost-button" href="http://47.116.42.11:1234/API.md" target="_blank" rel="noreferrer">Markdown</a>
           <a class="ghost-button" href="http://47.116.42.11:1234/swagger" target="_blank" rel="noreferrer">Swagger</a>
-          <a class="ghost-button" href="http://47.116.42.11:1234/api/routes" target="_blank" rel="noreferrer">接口清单 JSON</a>
+          <a class="ghost-button" href="http://47.116.42.11:1234/api/routes" target="_blank" rel="noreferrer">Routes JSON</a>
         </div>
       </div>
 
       <div class="docs-grid">
         <section class="endpoint">
           <h2><span class="method">GET</span>/api/health</h2>
-          <p>健康检查，确认 API 和上游是否可用。</p>
+          <p>Health check for the remote API service and its upstream connectivity.</p>
         </section>
 
         <section class="endpoint">
           <h2><span class="method">GET</span>/api/routes</h2>
-          <p>返回当前服务已暴露的接口列表。</p>
+          <p>Returns the currently exposed route list for the deployed service.</p>
         </section>
 
         <section class="endpoint">
           <h2><span class="method">GET</span>/api/search</h2>
-          <p>统一搜索接口。</p>
-          <pre>参数：q=关键词&type=songs|playlists</pre>
+          <p>Unified search route.</p>
+          <pre>Parameters: q=keywords&type=songs|playlists</pre>
         </section>
 
         <section class="endpoint">
           <h2><span class="method">GET</span>/api/search/songs</h2>
-          <p>搜索歌曲。</p>
-          <pre>参数：q=关键词</pre>
+          <p>Search songs through the remote API layer.</p>
+          <pre>Parameters: q=keywords</pre>
         </section>
 
         <section class="endpoint">
           <h2><span class="method">GET</span>/api/search/playlists</h2>
-          <p>搜索歌单。首屏部分结果会直接补真实封面。</p>
-          <pre>参数：q=关键词</pre>
+          <p>Search playlists. The service may enrich some playlist covers automatically.</p>
+          <pre>Parameters: q=keywords</pre>
         </section>
 
         <section class="endpoint">
           <h2><span class="method">GET</span>/api/playlist/share-meta</h2>
-          <p>按歌单 ID 获取分享页真实封面。</p>
-          <pre>参数：id=歌单ID</pre>
+          <p>Fetch share-page metadata for a playlist by ID.</p>
+          <pre>Parameters: id=playlistId</pre>
         </section>
 
         <section class="endpoint">
           <h2><span class="method">GET</span>/api/playlist/detail</h2>
-          <p>获取歌单详情和歌曲列表。</p>
-          <pre>参数：id=歌单ID</pre>
+          <p>Fetch playlist detail and track list.</p>
+          <pre>Parameters: id=playlistId</pre>
         </section>
 
         <section class="endpoint">
           <h2><span class="method">GET</span>/api/song/detail</h2>
-          <p>获取分享页歌曲详情。</p>
-          <pre>参数：id=歌曲ID</pre>
+          <p>Fetch detail for a single shared song entry.</p>
+          <pre>Parameters: id=songId</pre>
         </section>
 
         <section class="endpoint">
           <h2><span class="method">GET</span>/api/song/full</h2>
-          <p>单首歌聚合接口，一次拿详情、歌词、可播性。</p>
-          <pre>参数：id=歌曲ID&name=歌名&artist=歌手&album=专辑&cover=封面URL</pre>
+          <p>Aggregated song route for detail, lyrics, and playability data.</p>
+          <pre>Parameters: id=songId&name=title&artist=artist&album=album&cover=coverUrl</pre>
         </section>
 
         <section class="endpoint">
           <h2><span class="method">GET</span>/api/lyrics</h2>
-          <p>获取歌词，优先上游，失败回退分享页。</p>
-          <pre>参数：id=歌曲ID&name=歌名&artist=歌手&album=专辑</pre>
+          <p>Fetch lyrics, preferring upstream responses and falling back when needed.</p>
+          <pre>Parameters: id=songId&name=title&artist=artist&album=album</pre>
         </section>
 
         <section class="endpoint">
           <h2><span class="method">GET</span>/api/playback/check</h2>
-          <p>检测歌曲可播性与推荐播放源。</p>
-          <pre>参数：id=歌曲ID&name=歌名&artist=歌手&album=专辑&cover=封面URL</pre>
+          <p>Check whether a song appears playable and what source is preferred.</p>
+          <pre>Parameters: id=songId&name=title&artist=artist&album=album&cover=coverUrl</pre>
         </section>
 
         <section class="endpoint">
           <h2><span class="method">GET</span>/api/stream</h2>
-          <p>音频流代理，可直接给 audio 使用。</p>
-          <pre>参数：id=歌曲ID&name=歌名&artist=歌手&album=专辑&cover=封面URL
-可选：preferred=share&shareUrl=...</pre>
+          <p>Audio stream proxy route designed for direct use by an audio player.</p>
+          <pre>Parameters: id=songId&name=title&artist=artist&album=album&cover=coverUrl
+Optional: preferred=share&shareUrl=...</pre>
         </section>
 
         <section class="endpoint">
           <h2><span class="method">GET</span>/api/cover</h2>
-          <p>图片代理，图片失效时返回占位图。</p>
-          <pre>参数：url=图片地址</pre>
+          <p>Image proxy route with fallback handling.</p>
+          <pre>Parameters: url=imageUrl</pre>
         </section>
 
         <section class="endpoint">
           <h2><span class="method">GET</span>/api/auth/status / probe / pages / my-playlists-probe</h2>
-          <p>本机登录态调试接口，用于研究客户端登录态复用，不作为正式稳定账号接口承诺。</p>
+          <p>Auth-debugging routes used to inspect client-side login signals for the remote-connected workflow.</p>
         </section>
       </div>
     </div>

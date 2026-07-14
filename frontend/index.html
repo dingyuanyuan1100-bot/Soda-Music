@@ -1,9 +1,9 @@
 <!doctype html>
-<html lang="zh-CN">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>汽水音乐工作台</title>
+    <title>Soda Music Remote Workspace</title>
     <link rel="icon" href="/favicon.ico" sizes="any" />
     <link rel="stylesheet" href="/app.css?v=20260714-01" />
   </head>
@@ -13,38 +13,38 @@
         <div class="sidebar-top">
           <div class="brand-mark">S</div>
           <div class="brand-copy">
-            <strong>汽水音乐</strong>
-            <span>本地工作台</span>
+            <strong>Soda Music</strong>
+            <span>Remote service workspace</span>
           </div>
         </div>
 
-        <nav class="sidebar-nav" aria-label="主导航">
+        <nav class="sidebar-nav" aria-label="Primary navigation">
           <button class="nav-item active" type="button">
-            <span class="nav-icon">♥</span>
-            <span>歌曲搜索</span>
+            <span class="nav-icon">*</span>
+            <span>Song Search</span>
           </button>
           <button class="nav-item" id="search-playlists" type="button">
-            <span class="nav-icon">▣</span>
-            <span>歌单搜索</span>
+            <span class="nav-icon">#</span>
+            <span>Playlist Search</span>
           </button>
           <button class="nav-item" id="check-auth" type="button">
-            <span class="nav-icon">◎</span>
-            <span>登录检测</span>
+            <span class="nav-icon">@</span>
+            <span>Auth Check</span>
           </button>
           <a class="nav-item" href="/api-docs.html">
-            <span class="nav-icon">☱</span>
-            <span>接口文档</span>
+            <span class="nav-icon">=</span>
+            <span>API Docs</span>
           </a>
         </nav>
 
         <div class="sidebar-foot">
           <div class="sidebar-note">
             <span class="dot"></span>
-            <span>Web 3100</span>
+            <span>Remote host: 47.116.42.11</span>
           </div>
           <div class="sidebar-note muted-note">
             <span class="dot muted"></span>
-            <span>API 已封装</span>
+            <span>Connected to remote API service</span>
           </div>
         </div>
       </aside>
@@ -52,15 +52,15 @@
       <main class="workspace">
         <header class="topbar">
           <div class="topbar-copy">
-            <p class="eyebrow">SODA MUSIC WORKSPACE</p>
-            <h1>汽水音乐搜索工作台</h1>
-            <p class="topbar-desc">搜索歌曲、歌单，查看封面、歌词与播放时序，并保留本机登录态检测入口。</p>
+            <p class="eyebrow">SODA MUSIC REMOTE WORKSPACE</p>
+            <h1>Soda Music Search Workspace</h1>
+            <p class="topbar-desc">This page is a workspace for the remote service at <code>http://47.116.42.11/</code>. It is used to search songs and playlists, inspect playback and lyrics, and check remote-connected auth behavior.</p>
           </div>
           <div class="topbar-badges">
-            <span class="badge">封面</span>
-            <span class="badge">歌词</span>
-            <span class="badge">试听</span>
-            <a class="badge" href="/api-docs.html" style="text-decoration:none; color:inherit;">API 文档</a>
+            <span class="badge">Cover</span>
+            <span class="badge">Lyrics</span>
+            <span class="badge">Playback</span>
+            <a class="badge" href="/api-docs.html" style="text-decoration:none; color:inherit;">Remote API Docs</a>
           </div>
         </header>
 
@@ -68,42 +68,42 @@
           <section class="status-strip panel">
             <div class="panel-head compact-head">
               <div>
-                <h2>当前任务</h2>
-                <p class="muted">默认显示歌曲结果，歌单和登录态入口仍然保留。</p>
+                <h2>Current Task</h2>
+                <p class="muted">Default view focuses on song search while keeping playlist and auth tools available.</p>
               </div>
-              <span id="result-type" class="chip">歌曲</span>
+              <span id="result-type" class="chip">Songs</span>
             </div>
-            <p id="search-status" class="status-line">输入关键词后开始搜索。</p>
+            <p id="search-status" class="status-line">Enter keywords to start searching the remote service.</p>
           </section>
 
           <section class="auth-panel panel">
             <div class="panel-head compact-head">
               <div>
-                <h2>本机登录态检测</h2>
-                <p id="auth-summary" class="muted">尚未检测。</p>
+                <h2>Remote Auth Check</h2>
+                <p id="auth-summary" class="muted">Not checked yet.</p>
               </div>
-              <button class="ghost-button" id="check-auth-inline" type="button">重新检测</button>
+              <button class="ghost-button" id="check-auth-inline" type="button">Check Again</button>
             </div>
-            <pre id="auth-detail" class="info-block">点击左侧“登录检测”或上方按钮后，这里会显示本机汽水客户端登录态探测结果。</pre>
+            <pre id="auth-detail" class="info-block">Use this panel to inspect auth-related signals used by the remote-connected Soda Music workflow.</pre>
           </section>
 
           <section class="panel">
             <div class="panel-head compact-head">
               <div>
-                <h2>接口封装状态</h2>
-                <p class="muted">主页可直接跳转 API 文档页，文档与当前服务已对齐。</p>
+                <h2>Interface Status</h2>
+                <p class="muted">The frontend is wired to the current remote service deployment and its documented routes.</p>
               </div>
-              <a class="ghost-button" href="/api-docs.html">打开文档</a>
+              <a class="ghost-button" href="/api-docs.html">Open Docs</a>
             </div>
-            <pre class="info-block">已封装：搜索歌曲、搜索歌单、统一搜索、歌单详情、歌曲详情、歌词、可播检测、音频流、封面代理、歌单封面补全、歌曲聚合接口、登录态调试接口、接口清单。</pre>
+            <pre class="info-block">Available tooling includes song search, playlist search, unified song detail, lyrics lookup, playback checks, audio streaming, cover proxying, playlist cover enrichment, auth debugging, and route inspection for the remote deployment.</pre>
           </section>
 
           <div class="workspace-grid">
             <section class="results-panel panel">
               <div class="panel-head">
                 <div>
-                  <h2>结果列表</h2>
-                  <p class="muted">歌曲与歌单结果都显示在这里。</p>
+                  <h2>Results</h2>
+                  <p class="muted">Songs and playlists returned by the remote service appear here.</p>
                 </div>
               </div>
               <div id="results" class="list cards"></div>
@@ -112,29 +112,29 @@
             <section class="detail-panel panel">
               <div class="panel-head">
                 <div>
-                  <h2>详情面板</h2>
-                  <p class="muted">封面、元信息、歌词与播放时序。</p>
+                  <h2>Details</h2>
+                  <p class="muted">Cover art, metadata, lyrics, and playback timing.</p>
                 </div>
               </div>
 
               <div class="cover-row">
-                <img id="cover" alt="歌曲封面" class="cover-art" />
+                <img id="cover" alt="Song cover" class="cover-art" />
                 <div id="detail-meta" class="detail-meta"></div>
               </div>
 
               <section class="sub-panel">
                 <div class="sub-head">
-                  <h3>播放时序</h3>
-                  <span id="timing-summary" class="chip muted-chip">未开始</span>
+                  <h3>Playback Timeline</h3>
+                  <span id="timing-summary" class="chip muted-chip">Idle</span>
                 </div>
-                <pre id="timing-log" class="info-block timing-block">点击试听后，这里会显示 click、loadstart、loadedmetadata、canplay、playing 的时间。</pre>
+                <pre id="timing-log" class="info-block timing-block">Playback event timing will appear here after you start a track.</pre>
               </section>
 
               <section class="sub-panel grow-panel">
                 <div class="sub-head">
-                  <h3>歌词</h3>
+                  <h3>Lyrics</h3>
                 </div>
-                <pre id="lyrics" class="lyrics-block">选择一首歌曲后，这里会显示歌词。</pre>
+                <pre id="lyrics" class="lyrics-block">Lyrics will appear here after selecting a song.</pre>
               </section>
             </section>
           </div>
@@ -143,12 +143,12 @@
         <section class="composer-shell">
           <div class="composer-card">
             <div class="composer-main">
-              <label class="composer-label" for="keyword">搜索输入</label>
-              <input id="keyword" type="text" placeholder="输入歌曲名、歌手、专辑或歌单名" aria-label="搜索关键词" />
+              <label class="composer-label" for="keyword">Search Input</label>
+              <input id="keyword" type="text" placeholder="Enter a song, artist, album, or playlist name" aria-label="Search keywords" />
             </div>
             <div class="composer-actions">
-              <button id="search-songs" type="button">搜索歌曲</button>
-              <button id="search-playlists-bottom" class="secondary" type="button">搜索歌单</button>
+              <button id="search-songs" type="button">Search Songs</button>
+              <button id="search-playlists-bottom" class="secondary" type="button">Search Playlists</button>
             </div>
           </div>
         </section>
@@ -157,15 +157,15 @@
 
     <section id="player" class="player-dock hidden">
       <div class="player-left">
-        <img id="player-cover" alt="当前歌曲封面" />
+        <img id="player-cover" alt="Current song cover" />
         <div class="player-text">
-          <strong id="player-title">未播放</strong>
-          <span id="player-artist">选择歌曲后开始试听</span>
-          <span id="player-source">播放源：未开始</span>
+          <strong id="player-title">Nothing Playing</strong>
+          <span id="player-artist">Choose a song to begin playback</span>
+          <span id="player-source">Source: idle</span>
         </div>
       </div>
       <div class="player-right">
-        <button id="player-toggle" class="secondary" type="button">播放</button>
+        <button id="player-toggle" class="secondary" type="button">Play</button>
         <audio id="audio" controls preload="auto"></audio>
       </div>
     </section>
