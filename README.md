@@ -1,8 +1,9 @@
 # Soda Music Third-Party Interface
 
-A server-exported repository for the Soda Music third-party interface currently running on `47.116.42.11`.
+A repository for the Soda Music third-party interface that connects to the remote service at `http://47.116.42.11/`.
 
-This project contains a browser-facing workspace frontend and a backend API service layer used for search, playback, login flows, and related tooling.
+This is not primarily a local standalone app.
+It is a code repository organized around a live remote deployment, including the browser-facing frontend assets and the API-facing backend service layer.
 
 ## Overview
 
@@ -11,9 +12,12 @@ The repository is organized into two main parts:
 - `frontend/`: the Soda Music workspace UI and static assets
 - `backend/`: the API service and upstream integration layer
 
+In practice, this repository should be understood as the code companion to the remote site, not as a purely local-first project.
+
 ## Current Status
 
 This codebase was imported from a live server rather than developed from a clean local monorepo.
+Its main target remains the remote environment at `http://47.116.42.11/`.
 Because of that, some internal historical naming still references `kugou`.
 
 That naming is not fully cosmetic:
@@ -38,6 +42,7 @@ frontend/
   soda-platform.js
   soda-platform.css
   launch-soda-client.ps1
+  start-soda-client.cmd
 
 backend/
   app.js
@@ -59,7 +64,7 @@ Frontend-facing capabilities currently present in the imported project include:
 - lyrics display
 - playback URL inspection
 - QR login and SMS login flows
-- local auth/session storage
+- browser-side auth and session storage for the remote service
 - debug and log views
 
 ## Local Development
@@ -72,7 +77,7 @@ npm install
 npm run dev
 ```
 
-Default runtime behavior remains aligned with the imported server project.
+Default runtime behavior remains aligned with the imported server project, but the real target environment is the remote host.
 
 ### Frontend
 
@@ -80,7 +85,7 @@ You can open the static frontend directly for inspection, or use the helper laun
 
 ```text
 frontend/launch-soda-client.ps1
-frontend/启动汽水客户端.cmd
+frontend/start-soda-client.cmd
 ```
 
 The current launcher starts:
@@ -95,7 +100,9 @@ The current frontend uses two route groups:
 - `/api`: stable search, album, artist, MV, and playback-oriented routes
 - `/raw-api`: login, captcha, QR login, lyrics, cover, and lower-level upstream routes
 
-See [frontend/docs/api.md](frontend/docs/api.md) for a compact reference.
+These routes are intended to work against the deployed remote service at `http://47.116.42.11/`.
+
+See [frontend/docs/api.md](C:/Users/dingy/Documents/Codex/2026-07-15/github-plugin-github-openai-curated/work/github-sync/frontend/docs/api.md) for a compact reference.
 
 ## Naming Policy For Future Cleanup
 
@@ -124,11 +131,13 @@ Unsafe cleanup pattern:
 - add a simple top-level runbook for deployment and rollback
 - verify frontend entrypoints before doing deeper backend refactors
 
-## Source Context
+## Remote Context
 
-Imported from the live environment hosted at:
+Primary remote environment:
 
 - `http://47.116.42.11/`
+
+This repository should be treated as the code companion to that remote site.
 
 Current GitHub repository:
 
