@@ -1,0 +1,248 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Soda Music Third-Party Platform</title>
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="stylesheet" href="/soda-platform.css?v=20260715-01" />
+  </head>
+  <body>
+    <div class="kp-shell">
+      <aside class="kp-sidebar">
+        <div class="kp-sidebar-top">
+          <div class="kp-brand-mark">S</div>
+          <div class="kp-brand-copy">
+            <strong>Soda Platform</strong>
+            <span>Standalone entry for playback, auth, and debugging</span>
+          </div>
+
+          <nav class="kp-nav">
+            <a class="kp-nav-item active" href="/soda-platform.html"><span class="kp-nav-icon">&gt;</span><span>Player</span></a>
+            <a class="kp-nav-item" href="/api-docs.html" target="_blank" rel="noreferrer"><span class="kp-nav-icon">#</span><span>Docs</span></a>
+            <a class="kp-nav-item" href="/" rel="noreferrer"><span class="kp-nav-icon">o</span><span>Home</span></a>
+          </nav>
+        </div>
+
+        <div class="kp-sidebar-foot">
+          <a class="kp-side-link" href="http://47.116.42.11/" target="_blank" rel="noreferrer">Live: http://47.116.42.11/</a>
+          <a class="kp-side-link" href="http://47.116.42.11/soda-platform.html" target="_blank" rel="noreferrer">Path: /soda-platform.html</a>
+        </div>
+      </aside>
+
+      <main class="kp-main">
+        <section class="kp-hero">
+          <div>
+            <p class="kp-eyebrow">SODA MUSIC THIRD-PARTY PLATFORM</p>
+            <h1>Soda Music Third-Party Platform</h1>
+            <p class="kp-hero-desc">This page keeps search, playback, auth tools, and debug entrypoints in one standalone screen.</p>
+          </div>
+          <div class="kp-hero-actions">
+            <button id="open-playlists-drawer" class="secondary">Playlists</button>
+            <button id="open-auth-drawer" class="secondary">Auth</button>
+            <button id="open-logs-drawer" class="secondary">Logs</button>
+            <button id="sync-profile" class="secondary">Sync</button>
+            <button id="refresh-token" class="secondary">Refresh Token</button>
+            <button id="logout" class="secondary">Logout</button>
+          </div>
+        </section>
+
+        <div class="kp-layout">
+          <section class="kp-results-column">
+            <section class="kp-search-bar">
+              <div class="kp-search-main">
+                <label class="kp-field-label" for="search-keywords">Keywords</label>
+                <input id="search-keywords" class="kp-search-input" placeholder="song / artist / album / playlist" />
+              </div>
+              <div>
+                <label class="kp-field-label" for="search-type">Type</label>
+                <select id="search-type" class="kp-select">
+                  <option value="song">Song</option>
+                  <option value="special">Playlist</option>
+                  <option value="album">Album</option>
+                  <option value="author">Artist</option>
+                  <option value="mv">MV</option>
+                  <option value="lyric">Lyric</option>
+                </select>
+              </div>
+              <div class="kp-search-action">
+                <label class="kp-field-label">Action</label>
+                <button id="search-submit">Search</button>
+              </div>
+            </section>
+
+            <section class="kp-panel kp-panel-fill">
+              <div class="kp-panel-head">
+                <div>
+                  <h2>Results</h2>
+                  <p>Songs can play directly. Playlists, albums, artists, and MV results can expand further.</p>
+                </div>
+              </div>
+              <div class="kp-scroll-list">
+                <div id="search-empty" class="kp-empty">No results yet.</div>
+                <div id="search-results"></div>
+              </div>
+            </section>
+          </section>
+
+          <aside class="kp-detail-column">
+            <section class="kp-panel kp-player-panel">
+              <div class="kp-panel-head">
+                <div>
+                  <h2>Now Playing</h2>
+                  <p>Cover, playback URL, and lyrics appear here.</p>
+                </div>
+              </div>
+              <div class="kp-album-card">
+                <img id="player-cover" class="kp-cover" alt="Current song cover" />
+                <div class="kp-track-meta">
+                  <strong id="player-title">No song selected</strong>
+                  <span id="player-sub">Choose a result to start playback.</span>
+                  <span id="player-url"></span>
+                  <button id="copy-player-url" class="secondary kp-copy-url" type="button">Copy URL</button>
+                </div>
+              </div>
+              <audio id="audio-player" controls preload="metadata"></audio>
+              <div id="lyrics-panel" class="kp-lyrics-panel">Lyrics will appear after a successful fetch.</div>
+            </section>
+
+            <section class="kp-panel kp-video-panel">
+              <div class="kp-panel-head">
+                <div>
+                  <h2>MV Player</h2>
+                  <p>MV results can play directly here.</p>
+                </div>
+              </div>
+              <img id="video-poster" class="kp-video-poster" alt="MV cover" />
+              <div class="kp-track-meta" style="margin: 14px 0 10px">
+                <strong id="video-title">No MV selected</strong>
+                <span id="video-sub">Choose an MV result to start playback.</span>
+              </div>
+              <div id="video-url" class="kp-video-url"></div>
+              <video id="video-player" controls preload="metadata"></video>
+            </section>
+          </aside>
+        </div>
+      </main>
+    </div>
+
+    <div id="drawer-backdrop" class="kp-drawer-backdrop hidden" aria-hidden="true"></div>
+
+    <aside id="playlists-drawer" class="kp-drawer hidden" aria-hidden="true">
+      <div class="kp-drawer-head">
+        <div>
+          <h2>My Playlists</h2>
+          <p>Load after login. The service will try multiple parameter shapes automatically.</p>
+        </div>
+        <button class="secondary" data-close-drawer="playlists-drawer">Close</button>
+      </div>
+      <div class="kp-scroll-list kp-drawer-body">
+        <div id="playlist-empty" class="kp-empty">No playlists loaded.</div>
+        <div id="playlist-results"></div>
+      </div>
+    </aside>
+
+    <aside id="auth-drawer" class="kp-drawer hidden" aria-hidden="true">
+      <div class="kp-drawer-head">
+        <div>
+          <h2>Auth And Settings</h2>
+          <p>SMS login, QR login, manual credential import, and auto refresh.</p>
+        </div>
+        <button class="secondary" data-close-drawer="auth-drawer">Close</button>
+      </div>
+      <div class="kp-scroll-list kp-drawer-body">
+        <div class="kp-auth-panel">
+          <strong id="session-pill" class="kp-pill kp-pill-warn">Logged out</strong>
+
+          <div class="kp-profile-row">
+            <img id="profile-avatar" class="kp-avatar" alt="Profile avatar" />
+            <div class="kp-profile-copy">
+              <strong id="profile-name-view">Logged out</strong>
+              <span id="profile-meta-view">Waiting for login</span>
+            </div>
+          </div>
+
+          <div class="kp-meta-list">
+            <div class="kp-meta-item"><span>Token</span><strong id="token-view">Not saved</strong></div>
+            <div class="kp-meta-item"><span>UserID</span><strong id="userid-view">Not saved</strong></div>
+            <div class="kp-meta-item"><span>DFID</span><strong id="dfid-view">Not saved</strong></div>
+            <div class="kp-meta-item"><span>Last Refresh</span><strong id="refresh-view">Never</strong></div>
+          </div>
+
+          <div class="kp-form-grid">
+            <label>Mobile<input id="mobile" placeholder="13800138000" /></label>
+            <label>Code<input id="sms-code" placeholder="123456" /></label>
+          </div>
+
+          <div class="kp-inline-actions">
+            <button id="send-code" class="secondary">Send Code</button>
+            <button id="login-by-code">Login</button>
+          </div>
+
+          <div class="kp-qr-card">
+            <img id="qr-image" class="kp-qr-image" alt="QR code" />
+            <div class="kp-qr-copy">
+              <strong>QR Login</strong>
+              <span id="qr-status">QR code not generated</span>
+              <span id="qr-meta"></span>
+              <div class="kp-inline-actions">
+                <button id="generate-qr" class="secondary">Generate QR</button>
+              </div>
+            </div>
+          </div>
+
+          <label class="kp-textarea-label">Manual auth JSON<textarea id="manual-auth" rows="4" placeholder='{"token":"...","userid":"...","dfid":"..."}'></textarea></label>
+          <div class="kp-inline-actions">
+            <button id="import-auth" class="secondary">Import</button>
+          </div>
+
+          <div class="kp-settings-block">
+            <h3>API Settings</h3>
+            <div class="kp-form-grid kp-form-grid-single">
+              <label>API Base URL<input id="base-url" placeholder="/raw-api" /></label>
+            </div>
+            <div class="kp-form-grid">
+              <label>Platform
+                <select id="platform">
+                  <option value="life">life</option>
+                  <option value="lite">lite</option>
+                </select>
+              </label>
+              <label>Auto refresh minutes<input id="refresh-minutes" type="number" min="5" step="1" value="30" /></label>
+            </div>
+            <div class="kp-form-grid kp-form-grid-single">
+              <label>Auto refresh
+                <select id="auto-refresh">
+                  <option value="true">Enabled</option>
+                  <option value="false">Disabled</option>
+                </select>
+              </label>
+            </div>
+            <div class="kp-inline-actions">
+              <button id="save-settings" class="secondary">Save</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <aside id="logs-drawer" class="kp-drawer hidden" aria-hidden="true">
+      <div class="kp-drawer-head">
+        <div>
+          <h2>Logs</h2>
+          <p>Requests, login, search, playback, and error output.</p>
+        </div>
+        <button class="secondary" data-close-drawer="logs-drawer">Close</button>
+      </div>
+      <div class="kp-scroll-list kp-drawer-body">
+        <div class="kp-inline-actions" style="margin-bottom: 12px">
+          <button id="clear-logs" class="secondary">Clear Logs</button>
+        </div>
+        <div id="logs-empty" class="kp-empty">No logs yet.</div>
+        <div id="logs"></div>
+      </div>
+    </aside>
+
+    <script type="module" src="/soda-platform.js?v=20260715-01"></script>
+  </body>
+</html>

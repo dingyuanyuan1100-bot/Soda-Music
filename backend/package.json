@@ -1,7 +1,7 @@
 {
-  "name": "kugoumusicapi",
+  "name": "soda-music-third-party-api",
   "version": "1.5.1",
-  "description": "",
+  "description": "Backend service for the Soda Music third-party interface workspace",
   "main": "main.js",
   "bin": "./app.js",
   "types": "./interface.d.ts",
@@ -30,10 +30,10 @@
     "node": ">=12"
   },
   "keywords": [
-    "酷狗音乐",
-    "酷狗",
-    "音乐",
-    "酷狗音乐nodejs"
+    "soda-music",
+    "third-party-api",
+    "music-api",
+    "nodejs"
   ],
   "author": "Lines",
   "license": "MIT",

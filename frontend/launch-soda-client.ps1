@@ -3,10 +3,10 @@ $ErrorActionPreference = 'Stop'
 $clientDir = Split-Path -Parent $MyInvocation.MyCommand.Path
 $outputsDir = Split-Path -Parent $clientDir
 $repoRoot = Split-Path -Parent $outputsDir
-$apiDir = Join-Path $repoRoot 'work\KuGouMusicApi'
-$staticScript = Join-Path $outputsDir 'start-static-server.js'
+$apiDir = Join-Path $repoRoot 'work\github-sync\backend'
+$webDir = Join-Path $repoRoot 'work\github-sync\frontend'
 $apiUrl = 'http://127.0.0.1:3000/server/now'
-$webUrl = 'http://127.0.0.1:3001/kugou-client/index.html'
+$webUrl = 'http://127.0.0.1:3001/index.html'
 
 function Test-UrlReady {
   param(
@@ -52,24 +52,24 @@ function Start-HiddenNodeProcess {
 }
 
 if (-not (Test-Path -LiteralPath $apiDir)) {
-  throw "KuGouMusicApi directory not found: $apiDir"
+  throw "Backend directory not found: $apiDir"
 }
 
-if (-not (Test-Path -LiteralPath $staticScript)) {
-  throw "Static server script not found: $staticScript"
+if (-not (Test-Path -LiteralPath $webDir)) {
+  throw "Frontend directory not found: $webDir"
 }
 
 if (-not (Test-UrlReady -Url $apiUrl)) {
   Start-HiddenNodeProcess -WorkingDirectory $apiDir -Arguments @('app.js')
   if (-not (Wait-UrlReady -Url $apiUrl)) {
-    throw 'KuGouMusicApi failed to start on http://127.0.0.1:3000'
+    throw 'Backend failed to start on http://127.0.0.1:3000'
   }
 }
 
 if (-not (Test-UrlReady -Url $webUrl)) {
-  Start-HiddenNodeProcess -WorkingDirectory $outputsDir -Arguments @($staticScript)
+  Start-HiddenNodeProcess -WorkingDirectory $webDir -Arguments @('-e', "const http=require('http');const fs=require('fs');const path=require('path');const root=process.cwd();const mime={'.html':'text/html; charset=utf-8','.js':'application/javascript; charset=utf-8','.css':'text/css; charset=utf-8','.json':'application/json; charset=utf-8','.svg':'image/svg+xml','.ico':'image/x-icon'};http.createServer((req,res)=>{let filePath=path.join(root,req.url==='/'?'index.html':decodeURIComponent(req.url.split('?')[0]));if(!filePath.startsWith(root)){res.statusCode=403;return res.end('Forbidden')}fs.stat(filePath,(err,stat)=>{if(err){res.statusCode=404;return res.end('Not Found')}if(stat.isDirectory()) filePath=path.join(filePath,'index.html');fs.readFile(filePath,(readErr,data)=>{if(readErr){res.statusCode=404;return res.end('Not Found')}res.setHeader('Content-Type',mime[path.extname(filePath)]||'application/octet-stream');res.end(data)})})}).listen(3001,'127.0.0.1')")
   if (-not (Wait-UrlReady -Url $webUrl)) {
-    throw 'Static server failed to start on http://127.0.0.1:3001'
+    throw 'Frontend failed to start on http://127.0.0.1:3001'
   }
 }
 
