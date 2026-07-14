@@ -126,8 +126,7 @@ Unsafe cleanup pattern:
 
 ## Recommended Next Steps
 
-- unify `index.html` and related UI copy with the new Soda naming
-- remove or archive legacy `kugou-platform.*` assets if no longer needed
+- unify any remaining visible UI copy with the Soda naming
 - add a simple top-level runbook for deployment and rollback
 - verify frontend entrypoints before doing deeper backend refactors
 
